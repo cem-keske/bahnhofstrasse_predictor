@@ -1,8 +1,10 @@
 import pandas as pd
 from datetime import datetime
+from typing import List
+from typing import Union
 
-def check_holiday(dates):
-
+def check_holiday(date: str) -> int:
+    # print(type(date))
     holidays = [
         # January 2021
         '2021-01-01',  # New Year's Day
@@ -60,17 +62,20 @@ def check_holiday(dates):
         '2024-12-25',  # Christmas
         '2024-12-26'   # St. Stephen's Day
     ]
+    date = date.split()[0]
+    if date in holidays:
+        return 1
+    return 0
+    # results = []
 
-    results = []
+    # for date in dates:
+    #     date_only = date.split()[0]  # Extract only the date part
+    #     if date_only in holidays:
+    #         results.append(True)
+    #     else:
+    #         results.append(False)
 
-    for date in dates:
-        date_only = date.split()[0]  # Extract only the date part
-        if date_only in holidays:
-            results.append(True)
-        else:
-            results.append(False)
-
-    return results
+    # return results
 
 
 if __name__ == '__main__':

@@ -15,4 +15,4 @@ def create_hour_features(datetime_array):
         'hour_sin': sin_values
     })
 
-    return df
+    return cos_values, sin_values
