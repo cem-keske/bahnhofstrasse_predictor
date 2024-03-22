@@ -79,5 +79,5 @@ def load_and_preprocess(path: str) -> pd.DataFrame:
     df['dayofyear_sin'] = df.apply(lambda row: dayofyear_features(row['date'])[1], axis=1)
 
     df = df.loc[df['location_id'] == 330]
-    df = df.drop(columns='date')
+    df = df.drop(columns=['date', 'location_id'])
     return df
