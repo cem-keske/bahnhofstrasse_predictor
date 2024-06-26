@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
 import lightning as L
-
+from torch import torchvision
 class RegressorModule(L.LightningModule):
     def __init__(self):
         super().__init__()
         self.layers = nn.Sequential(
-            nn.Linear(17, 128, dtype=torch.float64),
+            nn.Linear(16, 128, dtype=torch.float64),
             nn.ReLU(),
             nn.Linear(128, 32, dtype=torch.float64),
             nn.ReLU(),
@@ -28,3 +28,11 @@ class RegressorModule(L.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
         return optimizer
+    def test_step(self, batch, batch_idx):
+        # this is the test loop
+        x, y = batch
+        x = x.view(x.size(0), -1)
+        z = self.encoder(x)
+        x_hat = self.decoder(z)
+        test_loss = self.mse_loss(x_hat, x)
+        self.log("test_loss", test_loss)
